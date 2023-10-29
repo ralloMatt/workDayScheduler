@@ -32,9 +32,11 @@ function displayInputFields(){
     var hourDisplay = $("<div>"); // for the hour display
     hourDisplay.addClass("col-2 col-md-1 hour text-center py-3"); // add classes
 
-    if(hour < 13){
+    if(hour < 12){ // means AM
       hourDisplay.text(hour + " AM");
-    } else {
+    } else if(hour == 12) { // Means noon
+        hourDisplay.text(hour + " PM"); 
+    } else { // means PM
         hourDisplay.text(hour - 12 + " PM"); // subract 12 to get standard time
     }
 
