@@ -18,7 +18,7 @@ https://rallomatt.github.io/workDayScheduler/
 
 Information stored in Local Storage: 
 
-![alt text](assets/images/localStorage.png)
+![alt text](assets/images/localStorage.PNG)
 
 ## Credits
 
