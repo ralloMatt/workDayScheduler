@@ -24,9 +24,70 @@ $(function () {
 
 var today = dayjs(); // get todays information using dayjs
 
+var calendarContainer = $("#calendarContainer"); // get container for input fields
+
 displayCurrentDate(); // call the function to display the current day on webpage
+displayInputFields(); // diplays all the input fields on the webpage
 
 function displayCurrentDate(){ // displays date on webpage
   var weekDay = dayjs(today, "M-D-YYYY").format("dddd"); // get the day of the week
   $("#currentDay").text(weekDay + ", " + today.format("MMMM DD, YYYY")); // add to paragraph element in index
+}
+
+function displayInputFields(){
+
+  var hour = 9; // hour of input field
+
+  while(hour < 18){ // loop through each hour (military time XD)
+
+    // create div for each hour of workday calendar
+    var hourContainer = $("<div>");
+    hourContainer.addClass("row time-block past"); // add classes
+    hourContainer.attr("id", "hour-" + hour); // set id for each container (to use later)
+
+    // create hour field
+    var hourDisplay = $("<div>"); // for the hour display
+    hourDisplay.addClass("col-2 col-md-1 hour text-center py-3"); // add classes
+
+    if(hour < 13){
+      hourDisplay.text(hour + " AM");
+    } else {
+        hourDisplay.text(hour - 12 + " PM"); // subract 12 to get standard time
+    }
+
+    hourContainer.append(hourDisplay); // put the hour in element
+
+    // create input field
+    var inputField = $("<textarea>");
+    inputField.addClass("col-8 col-md-10 description"); // add classes
+    inputField.attr("rows", "3"); // set rows for textarea
+    // check hour to set background color class
+    // grey for past, red for present, green for future
+    // classes are set in style.css
+    var currentHour = dayjs().format("H");
+    if(hour < currentHour){ // means past
+      inputField.addClass("past"); // add classes
+    } else if (hour == currentHour){ // current hour
+      inputField.addClass("present");
+    } else { // future
+      inputField.addClass("future");
+    }
+
+    hourContainer.append(inputField); // put the input field in element
+
+    // create button
+    var button = $("<button>");
+    button.addClass("btn saveBtn col-2 col-md-1");
+    button.attr("aria-label", "save");
+    // create i element for button
+    var i = $("<i>");
+    i.addClass("fas fa-save");
+    i.attr("aria-hidden", "true");
+    button.append(i); // append i to button
+    hourContainer.append(button); // put the button inthe element
+
+    calendarContainer.append(hourContainer); 
+
+    hour ++; // go to next hour
+  }
 }
