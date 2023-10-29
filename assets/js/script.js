@@ -2,9 +2,9 @@ var today = dayjs(); // get todays information using dayjs
 
 var calendarContainer = $("#calendarContainer"); // get container for input fields
 
-
 displayCurrentDate(); // call the function to display the current day on webpage
 displayInputFields(); // diplays all the input fields on the webpage
+displayTaskData(); // display current tasks available
 
 //create a click event for each button
 for(var i = 9; i < 18; i++){
@@ -77,7 +77,21 @@ function displayInputFields(){
   }
 }
 
-function buttonClickEvent(){
+function displayTaskData(){ // display tasks if available
+  var hour = 9;
+
+  while (hour < 18){ // loop through hours (which i utilized as my keys for storage)
+    var task = localStorage.getItem("workSchedule" + hour); // get task from local storage
+
+    // set input text to task
+    var inputField = $("#input-hour-" + hour);
+    inputField.val(task);
+
+    hour++
+  }
+}
+
+function buttonClickEvent(){ // handles button clicks
 
   var hour = $(this).attr("id").match(/\d+/g); // get string id of button and find hour integer within said string 
   // d refers to digits (regexp) and g finds all matches
@@ -87,6 +101,5 @@ function buttonClickEvent(){
   var task = $(this).parent().children('textarea').val(); 
   
   // save input into local storage
-  localStorage.setItem(hour, task); //use hour for key
-
+  localStorage.setItem("workSchedule" + hour, task); //use hour for key
 }
