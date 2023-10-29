@@ -21,3 +21,12 @@ $(function () {
   //
   // TODO: Add code to display the current date in the header of the page.
 });
+
+var today = dayjs(); // get todays information using dayjs
+
+displayCurrentDate(); // call the function to display the current day on webpage
+
+function displayCurrentDate(){ // displays date on webpage
+  var weekDay = dayjs(today, "M-D-YYYY").format("dddd"); // get the day of the week
+  $("#currentDay").text(weekDay + ", " + today.format("MMMM DD, YYYY")); // add to paragraph element in index
+}
